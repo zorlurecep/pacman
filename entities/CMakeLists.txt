@@ -2,10 +2,12 @@ add_library(entities)
 add_library(pacman::entities ALIAS entities)
 
 target_sources(entities PRIVATE
+    BlueGhost.cpp
     PacMan.cpp
 )
 
 set(API_INCLUDES
+    BlueGhost.hpp
     PacMan.hpp
 )
 

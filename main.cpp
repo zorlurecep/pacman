@@ -1,10 +1,12 @@
 #include <SFML/Graphics.hpp>
 
+#include "entities/BlueGhost.hpp"
 #include "entities/PacMan.hpp"
 
 int main()
 {
     pacman::entities::PacMan pacMan;
+    pacman::entities::BlueGhost blueGhost;
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Pac-Man");
 
@@ -33,11 +35,13 @@ int main()
         }
 
         pacMan.handleInput();
+        blueGhost.handleInput();
 
         // Update the animation frame
         if (clock.getElapsedTime().asSeconds() > frameDuration)
         {
             pacMan.update();
+            blueGhost.update();
             clock.restart();
         }
 
@@ -46,6 +50,7 @@ int main()
 
         // Draw the sprite
         pacMan.render(window);
+        blueGhost.render(window);
 
         // Update the window
         window.display();
