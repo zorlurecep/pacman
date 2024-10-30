@@ -13,7 +13,7 @@ PacMan::PacMan() : BaseEntity(), _texture(), _speed(0.1f), _currentFrame(0)
     }
 
     _sprite.setTexture(_texture);
-    _sprite.setPosition(400, 300);
+    _sprite.setPosition(0, 0);
 
     _frames.push_back(sf::IntRect(0, 0, 16, 16));   // Frame 1
     _frames.push_back(sf::IntRect(16, 0, 16, 16));  // Frame 2

@@ -1,21 +1,38 @@
 #include <SFML/Graphics.hpp>
 
-#include "entities/BlueGhost.hpp"
 #include "entities/PacMan.hpp"
+#include "entities/TileMap.hpp"
 
 int main()
 {
+    // create the window
+    sf::RenderWindow window(sf::VideoMode(224, 256), "Tilemap");
+
+    int numberOftiles = 224;
+    int level[numberOftiles];
+    int index = 0;
+
+    int i = 0;
+    while (i < numberOftiles)
+    {
+        for (int j = 0; j < 14; j++)
+        {
+            level[i] = index;
+            index++;
+            i++;
+        }
+        index += 9;
+    }
+
+    // create the tilemap from the level definition
+    pacman::entities::TileMap map;
+    if (!map.load("../assets/TileMap.png", sf::Vector2u(16, 16), level, 14, 16))
+        return -1;
+
     pacman::entities::PacMan pacMan;
-    pacman::entities::BlueGhost blueGhost;
-
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Pac-Man");
-
-    // Animation variables
-    int currentFrame = 0;
     sf::Clock clock;
     float frameDuration = 0.1f; // Duration of each frame in seconds
-
-    // Start the game loop
+    // run the main loop
     while (window.isOpen())
     {
         // Process events
@@ -35,26 +52,19 @@ int main()
         }
 
         pacMan.handleInput();
-        blueGhost.handleInput();
-
         // Update the animation frame
         if (clock.getElapsedTime().asSeconds() > frameDuration)
         {
             pacMan.update();
-            blueGhost.update();
             clock.restart();
         }
 
-        // Clear screen
-        window.clear();
-
-        // Draw the sprite
+        // draw the map
+        window.clear(sf::Color::White);
+        window.draw(map);
         pacMan.render(window);
-        blueGhost.render(window);
-
-        // Update the window
         window.display();
     }
 
-    return EXIT_SUCCESS;
+    return 0;
 }

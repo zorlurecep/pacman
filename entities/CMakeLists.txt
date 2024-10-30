@@ -4,11 +4,13 @@ add_library(pacman::entities ALIAS entities)
 target_sources(entities PRIVATE
     BlueGhost.cpp
     PacMan.cpp
+    TileMap.cpp
 )
 
 set(API_INCLUDES
     BlueGhost.hpp
     PacMan.hpp
+    TileMap.hpp
 )
 
 target_include_directories(entities
